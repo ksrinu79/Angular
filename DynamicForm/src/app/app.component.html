@@ -1,0 +1,51 @@
+<div *ngFor="let choice of testData |unique ">
+  <div *ngIf="choice.qType=== 'RadioButton'" >
+      <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
+     <div class="row mt">
+          <div *ngFor="let choice2 of testData " >
+          <input  id="{{ choice.qId }}" name="{{ choice.qId }}" Type ='radio' ng-model="formData[choice2.qaId]" ng-value="choice2.qaId" />{{choice2.answer}}
+          </div>
+          <input Type ='text' ng-model="commentsData[choice.qId]" >
+      </div>
+ </div>
+
+ <div *ngIf ="choice.qType=== 'CheckBox'" >
+     <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
+     <div class="row mt">
+             <div *ngFor="let choice1 of testData  ">
+                 <input Type ='checkbox' ng-model="formData[choice1.qaId]" ng-value="choice1.qaId" >{{choice1.answer}}
+             </div>
+     </div>
+ </div>
+
+ <div *ngIf ="choice.qType=== 'FreeText'" >
+         <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
+         <div class="row mt">
+                 <div *ngFor="let choice3 of testData ">
+                     <input Type ='text' ng-model="formData[choice3.qaId]" >
+                 </div>
+         </div>
+ </div>
+
+ <div *ngIf ="choice.qType=== 'DropDown'" >
+     <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
+     <div class="row mt">
+         <select chosen="{inherit_select_classes:true,'search_contains':true, 'width':'100%'}"
+         ng-model="formData[choice.qaId]" class="required  ng-pristine ng-untouched localytics-chosen ng-empty ng-invalid ng-invalid-required">
+         <option *ngFor="let choice4 of testData " ng-value="choice4.qaId">{{choice4.answer}}</option>
+
+         </select>
+     </div>
+ </div>
+
+</div>
+<div class="btn btn-primary btn-sm"  ng-click="doNext()"><em class="icon-arrow-right mr"></em> Next</div>
+
+<div class="form-group row">
+<div class="col-xs-6 col-xs-offset-3">
+ <a ui-sref="form.interests" class="btn btn-block btn-info">
+ Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
+ </a>
+</div>
+</div>
+<router-outlet></router-outlet>
