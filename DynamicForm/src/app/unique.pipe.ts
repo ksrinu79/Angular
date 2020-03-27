@@ -22,7 +22,7 @@ export class UniquePipe implements PipeTransform {
     //angular.forEach(value, function(item) {
       for (let item of value) {
       // we check to see whether our object exists
-      var key = item["qId"];
+      var key = item["questionId"];
       // if it's not already part of our keys array
       if (keys.indexOf(key) === -1) {
         // add it to our keys array

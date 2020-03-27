@@ -1,51 +1,92 @@
-<div *ngFor="let choice of testData |unique ">
-  <div *ngIf="choice.qType=== 'RadioButton'" >
+<div *ngFor="let choice of testData |unique;let i=index; ">
+  <div *ngIf="choice.questionType=== 'RadioButton'" >
       <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
      <div class="row mt">
-          <div *ngFor="let choice2 of testData " >
-          <input  id="{{ choice.qId }}" name="{{ choice.qId }}" Type ='radio' ng-model="formData[choice2.qaId]" ng-value="choice2.qaId" />{{choice2.answer}}
+          <div *ngFor="let choice2 of testData | myfilter : 'questionId' : choice.questionId" >
+          <input  id="radio1"  Type ='radio' [(ngModel)]="formData[choice2.answerId]" [value]="choice2.answerId" (change)="getNext(choice2)"/>{{choice2.answer}}
           </div>
-          <input Type ='text' ng-model="commentsData[choice.qId]" >
+
+          <div class="row" style="padding-left:20px;" *ngIf="showComment01">
+            <label for="name">Addtional Information</label>
+              <textarea
+              [(ngModel)]="commentsData[choice.qaId]"
+              class="form-control"
+              rows="3"
+              cols="30"
+              maxlines="5"
+              maxlines-prevent-enter="true"
+            ></textarea>
+          </div>
+
       </div>
  </div>
 
- <div *ngIf ="choice.qType=== 'CheckBox'" >
+ <div *ngIf ="choice.questionType=== 'CheckBox'" >
      <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
      <div class="row mt">
-             <div *ngFor="let choice1 of testData  ">
-                 <input Type ='checkbox' ng-model="formData[choice1.qaId]" ng-value="choice1.qaId" >{{choice1.answer}}
+             <div *ngFor="let choice1 of testData | myfilter : 'questionId' : choice.questionId ">
+                 <input id="checkbox1" class="styled" type="checkbox" [(ngModel)]="formData[choice1.answerId]" [value]="choice1.answerId" (change)="getNext(choice1)" >{{choice1.answer}}
              </div>
      </div>
  </div>
 
- <div *ngIf ="choice.qType=== 'FreeText'" >
+ <div *ngIf ="choice.questionType=== 'FreeText'" >
          <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
          <div class="row mt">
-                 <div *ngFor="let choice3 of testData ">
-                     <input Type ='text' ng-model="formData[choice3.qaId]" >
+                 <div *ngFor="let choice3 of testData | myfilter : 'questionId' : choice.questionId">
+                     <input Type ='text' [(ngModel)]="formData[choice3.answerId]"  [value]="choice3.answerId" (change)="getNext(choice3)">
                  </div>
          </div>
  </div>
 
- <div *ngIf ="choice.qType=== 'DropDown'" >
+ <div *ngIf ="choice.questionType=== 'DropDown'" >
      <span class="text-primary h5"><em class="mr icon-layers"></em>{{choice.question}} </span>
      <div class="row mt">
-         <select chosen="{inherit_select_classes:true,'search_contains':true, 'width':'100%'}"
-         ng-model="formData[choice.qaId]" class="required  ng-pristine ng-untouched localytics-chosen ng-empty ng-invalid ng-invalid-required">
-         <option *ngFor="let choice4 of testData " ng-value="choice4.qaId">{{choice4.answer}}</option>
-
-         </select>
+      <select required [(ngModel)]= "formData1[choice.answerId]" (ngModelChange)='onDropDown()'>
+      <option *ngFor="let choice4 of testData" [value]="choice4.answerId">{{choice4.answer}}</option>
+      </select>
      </div>
  </div>
 
 </div>
-<div class="btn btn-primary btn-sm"  ng-click="doNext()"><em class="icon-arrow-right mr"></em> Next</div>
-
 <div class="form-group row">
-<div class="col-xs-6 col-xs-offset-3">
- <a ui-sref="form.interests" class="btn btn-block btn-info">
- Next Section <span class="glyphicon glyphicon-circle-arrow-right"></span>
- </a>
+    <div class="col-xs-4">
+       <input type="button" (click)="doStart()" value="Start">
+       <input type="button" (click)="save()" value="Save">
+       <input type="button" (click)="doNext()" value="Next">
+       <!-- <div class="btn "  (click)="doStart()">
+            Start Over
+            <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </div>
+    </div>
+    <div class="col-xs-4 ">
+        <div class="btn btn-block btn-info" (click)="save()">
+            Save
+            <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </div>
+    </div>
+    <div class="col-xs-4 ">
+        <div class="btn btn-block btn-info" (click)="doNext()">
+            Next
+            <span class="glyphicon glyphicon-circle-arrow-right"></span>
+        </div> -->
+    </div>
 </div>
-</div>
+
+<table cellpadding="1" cellspacing="1">
+  <tr>
+
+      <th>Question</th>
+      <th>Answer</th>
+      <th>Comments</th>
+  </tr>
+  <tbody *ngFor="let m of answers ">
+      <tr>
+
+          <td>{{m.question}}</td>
+          <td>{{m.answer}}</td>
+          <td>{{m.comments}}</td>
+      </tr>
+  </tbody>
+</table>
 <router-outlet></router-outlet>
