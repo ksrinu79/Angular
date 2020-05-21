@@ -1,0 +1,124 @@
+  <mat-card-header [style.backgroundColor]="'white'">
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title >
+             <div layout="row" layout-align="center center">
+             <h1 style="text-align:center; text-shadow: 2px 2px 8px rgb(0, 255, 213); font-weight: bold;  font-family:avenir,helvetica,sans-serif; color:rgb(8, 8, 8);">Dynamic Forms</h1></div>
+     </mat-card-title>
+  </mat-card-header>
+
+  <div class="progress-bar progress-bar-striped"   [ngStyle]="{'width.%':progresswidth}">
+          {{progresswidth}}%
+  </div>
+
+
+
+<mat-sidenav-container class="example-container" >
+    <mat-sidenav>Start</mat-sidenav>
+     <mat-sidenav-content>
+       <div class="mat-card-cvr">
+         <mat-card class="example-card">
+             <mat-card-content>
+               <div *ngFor="let choice of testData |unique;let i=index; ">
+                  <div class="well" style="padding: 40px;">
+                       <div *ngIf="choice.questionType=== 'RadioButton'" >
+                           <span class="text-primary h6"><em class="mr icon-layers"></em>{{choice.question}} </span>
+                           <div >
+                               <mat-radio-group  [(ngModel)]="formData1[i]">
+                                   <mat-radio-button class="example-radio-button" *ngFor="let choice2 of testData | myfilter : 'questionId' : choice.questionId"  [value]="choice2.answerId" (change)="getNext(choice2)">{{choice2.answer}}
+                                   </mat-radio-button>
+                               </mat-radio-group>
+                               <div class="row" style="padding-left:20px;" *ngIf="showComment01">
+                                   <mat-form-field  appearance="fill">
+                                        <mat-label>Addtional Information</mat-label>
+                                           <textarea matInput [(ngModel)]="commentsData[choice.qaId]"></textarea>
+                                  </mat-form-field>
+                               </div>
+                            </div>
+                         </div>
+
+
+                       <div *ngIf ="choice.questionType=== 'CheckBox'" >
+                           <span class="text-primary h6"><em class="mr icon-layers"></em>{{choice.question}} </span>
+                               <div *ngFor="let choice1 of testData | myfilter : 'questionId' : choice.questionId ">
+                                   <mat-checkbox [(ngModel)]="formData[choice1.answerId]" [value]="choice1.answerId" (change)="getNext(choice1)">{{choice1.answer}}</mat-checkbox>
+                               </div>
+                        </div>
+
+
+                       <div *ngIf ="choice.questionType=== 'FreeText'" >
+                           <span class="text-primary h6"><em class="mr icon-layers"></em>{{choice.question}} </span>
+                               <div *ngFor="let choice3 of testData | myfilter : 'questionId' : choice.questionId">
+                                   <mat-form-field appearance="fill">
+                                       <input matInput [(ngModel)]="formData[choice3.answerId]"  [value]="choice3.answerId" (change)="getNext(choice3)">
+                                   </mat-form-field>
+                               </div>
+
+                       </div>
+
+
+                       <div *ngIf ="choice.questionType=== 'DropDown'" >
+                            <span class="text-primary h6"><em class="mr icon-layers"></em>{{choice.question}} </span>
+                            <mat-form-field appearance="fill">
+                                  <mat-select [(ngModel)]= "formData1[choice.answerId]" (ngModelChange)='onDropDown()'>
+                                       <mat-option *ngFor="let choice4 of testData | myfilter : 'questionId' : choice.questionId " [value]="choice4.answerId">
+                                            {{choice4.answer}}
+                                       </mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                       </div>
+       </div>
+    </div>
+
+    <div *ngIf=norecords>
+      <span class="text-primary h6"><em class="mr icon-layers"></em>Thank you for submiiting your responses </span>
+    </div>
+</mat-card-content>
+</mat-card>
+</div>
+</mat-sidenav-content>
+</mat-sidenav-container>
+
+  <div class="container">
+    <div class="container-middle">
+       <button mat-fab color="primary" (click)="doStart()">Start</button>
+       <button mat-fab color="primary" (click)="save()">Save</button>
+       <button mat-fab color="primary" (click)="doNext()">Next<i class='fas fa-chevron-down'></i></button>
+       <button mat-raised-button color="warn"  data-toggle="collapse" data-target="#demo">Your Responses</button>
+    </div>
+  </div>
+
+
+
+<div id="demo" class="collapse">
+    <div class="example-table-container">
+    <table mat-table #table  class="example-table mat-elevation-z8">
+
+      <!-- Question Column -->
+      <ng-container matColumnDef="question">
+        <th mat-header-cell *matHeaderCellDef > Question </th>
+        <td mat-cell *matCellDef="let row"> {{row.question}} </td>
+      </ng-container>
+
+      <!-- Answer Column -->
+      <ng-container matColumnDef="answer">
+        <th mat-header-cell *matHeaderCellDef > Answer </th>
+        <td mat-cell *matCellDef="let row"> {{row.answer}} </td>
+      </ng-container>
+
+      <!-- Comments Column -->
+      <ng-container matColumnDef="comments">
+        <th mat-header-cell *matHeaderCellDef > Comments </th>
+        <td mat-cell *matCellDef="let row"> {{row.comments}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </div>
+</div>
+
+

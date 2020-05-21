@@ -1,0 +1,151 @@
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+
+
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+
+
+th {
+  border: 1px solid #ffa600;
+  font-weight: 2900;
+  background: #c6d5eb;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.example-table-container {
+  position: relative;
+  height: 500px;
+  overflow: auto;
+  display:inline-block;
+
+  display: flex;
+  justify-content: center;
+}
+
+.example-table{
+  width: 1050px;
+}
+
+table {
+  width: 1050px;
+
+}
+
+tr.mat-row {
+  background: #c6d5eb;
+  border: 2px solid rgb(241, 197, 197);
+}
+
+.example-container {
+  position: right;
+  height: 400px;
+
+}
+
+button {
+  margin: 16px 8px;
+
+}
+
+.example-card {
+  width: 800px;
+  height: 400px;
+  overflow: auto;
+  display:inline-block;
+}
+
+body {
+  margin: 16px;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.tr-model{
+  box-sizing: border-box;
+}
+.example-h2 {
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 5px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}
+
+.example-card1 {
+  max-width: 1000px;
+}
+
+.example-header-image {
+  background-image: url('https://www.aps.edu/sapr/images/pnglot.comtwitterbirdlogopng139932.png');
+  background-size: cover;
+}
+
+.main-div{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mat-card-cvr{
+  width: 100%;
+  padding-left: 22% !important;
+}
+
+
+.mat-column-question {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 60% !important;
+  width: 60% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+}
+
+.container-middle{
+  width: 500px;
+}
+
+::ng-deep .mat-card{
+
+  border: 2px solid rgb(241, 197, 197);
+  border-radius: 30px !important;
+ }
+
+
